@@ -1,12 +1,26 @@
-const express = require("express");
-const cors = require("cors");
+import express from "express";
+import cors from "cors";
 
 const app = express();
 app.use(express.json());
 app.use(cors());
 app.set("json spaces", 2);
 
-const services = [
+type Service = {
+  id: number;
+  serviceName: string;
+  serviceDuration: number;
+};
+
+type Appointment = {
+  id: string;
+  serviceName: string;
+  serviceId: number;
+  apptStartTime: string;
+  apptDuration: number;
+};
+
+const services: Service[] = [
   {
     id: 1,
     serviceName: "Synthetic Oil Change",
@@ -29,7 +43,7 @@ const services = [
   },
 ];
 
-const getRandom = (min, max) => {
+const getRandom = (min: number, max: number) => {
   return Math.floor(Math.random() * max) + min;
 };
 
@@ -49,7 +63,7 @@ const randomDate = () => {
   );
 };
 
-let appointments = [];
+let appointments: Appointment[] = [];
 services.forEach((service) => {
   for (let i = 0; i < getRandom(2, 4); ++i) {
     appointments.push({
@@ -57,7 +71,7 @@ services.forEach((service) => {
       serviceName: service.serviceName,
       serviceId: service.id,
       apptStartTime: randomDate().toISOString(),
-      apptDuration: service.duration,
+      apptDuration: service.serviceDuration,
     });
   }
 });
