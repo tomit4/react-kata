@@ -16,7 +16,7 @@
 
 ## Introduction
 
-![React Kata](https://github.com/lukexor/react-kata/blob/main/public/images/logo.png?raw=true)
+![React Kata](https://github.com/driveway-engineering/react-kata/blob/main/src/assets/logo.png?raw=true)
 
 This project provides an interviewing screen for React engineers by providing a
 mock project to build.
@@ -27,32 +27,27 @@ to `http://localhost:2000/services`)
 
 ### Notes
 
-- **Remember**: This is an exercise and, due to limited time, do not need to
-  follow as robust a process as a real production application.
+- **Remember**: This is an exercise and do not need to follow as robust a
+  process as a production application.
 - This exercise uses [Functional
   React](https://reactjs.org/docs/hooks-intro.html) with hooks, so be prepared
-  to demonstrate your knowledge using that paradigm.
-- This exercise should not be worked on ahead of time. The intent is to work
-  through this together during the interview.
-- You are not expected to finish the exercise. The scope is deliberately larger
-  than an interview is expected to last. The intent is to see how you work
-  through the software development lifecycle given the constraints of the
-  exercise.
+  to demonstrate your knowledge.
+- The intent is to work through this together during the interview and should
+  not be done ahead of time.
+- You are not expected to finish. The intent is to see how you work through
+  problems given the constraints.
 
 ## Installation & Setup
 
-Ensure you have the following packages installed and updated to the latest
-versions:
+Ensure you have the following installed:
 
-- [NVM](http://nvm.sh/)
-- [NodeJS](https://nodejs.org/en/)
+- [NodeJS 14.15.1](https://nodejs.org/en/)
 
-Execute the following commands in your terminal to get started:
+Execute the following commands to get started:
 
 ```sh
-git clone https://github.com/lukexor/react-kata.git
+git clone https://github.com/driveway-engineering/react-kata.git
 cd react-kata
-nvm install
 npm install
 ```
 
@@ -76,13 +71,12 @@ npm test
 
 ## Tasks
 
-1. **Discovery/Design**: Read the requirements and sketch out some simple
-   mock-ups. This is its own important task, so give it the thought it deserves.
-   (~10-20 min)
-1. **Organize/Plan**: Due to limited time, assume the project should be split
-   into phases. Prioritize which features should be implemented in `Phase 1`
-   and are considered _MVP_. Base your choices on importance to Product + UX, as
-   well as technical complexity. (~10 min)
+1. **Discovery**: Read the requirements and familiarize yourself with the
+   codebase. (~10-15 min)
+1. **Organize/Plan**: Assume the project should be split into phases. Prioritize
+   which features should be implemented in `Phase 1` and are considered
+   _MVP_. Base your choices on importance to Product + UX, as well as technical
+   complexity. (~10 min)
 1. **Implement/Test**: Start building `Phase 1` features from the provided
    starter application. (~45-60 min)
 
@@ -94,11 +88,8 @@ book appointments such as oil changes, tire replacements, etc.
 
 ### Engineering Manager
 
-- "Our technical direction is to use _Functional React_ with hooks. You should
-  feel free to use any state library, router, or UI framework you feel you need,
-  but let's not overbuild this. Getting the tech right is my **TOP PRIORITY!**"
-- "If at all possible, I'd like at least one meaningful unit test. Testing is my
-  **TOP PRIORITY!**"
+- "You should feel free to use any libraries or frameworks you need, but let's
+  not overbuild this. Getting the tech right is my **TOP PRIORITY!**"
 - "These back-end engineers can't make a stable web service to save their lives!
   Make sure the pages still work even if the backend services are being spotty.
   Resiliency is my **TOP PRIORITY!**"
@@ -107,26 +98,22 @@ book appointments such as oil changes, tire replacements, etc.
 
 - "Making sure people can do business with us is most important goal. As long as
   people can book an appointment with us, our shareholders will be happy!"
-- "We want people to see our Logo first and foremost and a little blurb about
-  what we do. After that they should be able to click a _Get Started_ button to
-  get the ball rolling."
-- "Once they're in the main flow, they should be presented with all the services
-  available in the next two weeks. When they select a service, they should be
-  presented with all the available appointment slots for that service. They can
-  then select a slot and book it, by entering their name, email, and vehicle
-  information.
-- "Let's try to show an icon or picture with each available service."
-- "Once they pick the service they need, let's give them some kind of big
-  confirmation prompt. If they say yes, go ahead and book it"
-- "Almost forgot! We should put our company contact info somewhere on the
-  landing screen if people want to talk to someone. It's
-  **supportbutton@lithia.com** and the number is **555-872-3289.**"
+- "We want people to see our Logo first and a little blurb about what we
+  do. After that they should be able to click a button to get the ball rolling."
+- "The user should be presented with all the services available in the next two
+  weeks. When they select a service, they should be presented with all the
+  available appointment slots for that service. They can then select a slot and
+  book it, by entering their name, email, and vehicle information.
+- "Almost forgot! We should put our contact info somewhere on the landing screen
+  if people want to talk to someone. It's **supportbutton@lithia.com** and the
+  number is **555-872-3289.**"
 
 ## Resources
 
+- `src/assets/`: Images & icons provided by designers.
 - `src/components/`: Initial project components to build from.
+- `src/server/`: Mock API server providing service information.
 - `src/utils/`: Utility and middleware libraries.
-- `public/images/`: Example images/icons provided by designers.
 - `wireframes`: Sample wireframes provided by designers.
 
 ## API Reference
