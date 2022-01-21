@@ -72,13 +72,13 @@ npm test
 ## Tasks
 
 1. **Discovery**: Read the requirements and familiarize yourself with the
-   codebase. (~10-15 min)
-1. **Organize/Plan**: Assume the project should be split into phases. Prioritize
-   which features should be implemented in `Phase 1` and are considered
-   _MVP_. Base your choices on importance to Product + UX, as well as technical
-   complexity. (~10 min)
-1. **Implement/Test**: Start building `Phase 1` features from the provided
-   starter application. (~45-60 min)
+   codebase and API. (~10-15 min)
+1. **Organize/Plan**: Review each feature and talk through any design &
+   implementation choices. Mention pros and cons of each decision. Base your
+   choices on importance to Product + UX, as well as technical complexity. (~10
+   min)
+1. **Implement/Test**: Start building the features from the provided starter
+   application. (~45-60 min)
 
 ## Requirements
 
@@ -122,9 +122,9 @@ book appointments such as oil changes, tire replacements, etc.
 
 Returns a list of services available within the next 14 days. Each contains:
 
-- Service ID
-- Service Name
-- Service Duration (in seconds).
+- `id`: The unique service identifier.
+- `name`: The name of the service.
+- `duration`: The duration of the service in seconds.
 
 Example JSON response:
 
@@ -132,31 +132,36 @@ Example JSON response:
 [
   {
     "id": 1,
-    "serviceName": "Replace Brakes",
-    "serviceDuration": 3600
+    "name": "Replace Brakes",
+    "duration": 3600
   },
   {
     "id": 2,
-    "serviceName": "Oil Change",
-    "serviceDuration": 1800
+    "name": "Oil Change",
+    "duration": 1800
   },
   {
     "id": 3,
-    "serviceName": "Rotate Tires",
-    "serviceDuration": 1800
+    "name": "Rotate Tires",
+    "duration": 1800
   }
 ]
 ```
+
+### `GET` /appointments/
+
+Returns a list of all currently available appointment blocks within the next 14
+days. See the next section for details.
 
 ### `GET` /appointments/:serviceId
 
 Returns a list of appointment blocks currently available for the requested
 `Service ID` within the next 14 days. Each contains:
 
-- Appointment ID
-- Service Name
-- Appointment Start Date and Time
-- Appointment Duration (in seconds)
+- `id`: The unique service appointment identifier.
+- `name`: The name of the service appointment.
+- `start`: The start date & time of the appointment.
+- `duration`: The duration of the appointment in seconds.
 
 Example JSON Response:
 
@@ -164,15 +169,15 @@ Example JSON Response:
 [
   {
     "id": "972836c4-a389-4b23-9709-78cf33c246ed",
-    "serviceName": "Replace Brakes",
-    "apptStartTime": "2020-8-15T08:30:00.000Z",
-    "apptDuration": 3600
+    "name": "Replace Brakes",
+    "start": "2020-8-15T08:30:00.000Z",
+    "duration": 3600
   },
   {
     "id": "b192cf15-dcc7-443d-8d2a-6604be7952f1",
-    "serviceName": "Replace Brakes",
-    "apptStartTime": "2020-8-23T13:00:00.000Z",
-    "apptDuration": 3600
+    "name": "Replace Brakes",
+    "start": "2020-8-23T13:00:00.000Z",
+    "duration": 3600
   }
 ]
 ```
@@ -182,23 +187,34 @@ Example JSON Response:
 Book the requested appointment for a particular customer and vehicle. Request
 body must contain:
 
-- Customer Email
-- Customer Name
-- Vehicle Make
-- Vehicle Model
-- Vehicle Model Year
+- `email`: The customer's contact email address.
+- `name`: The customer's full name.
+- `make`: The make of the vehicle they are servicing.
+- `model` The model of the vehicle they are servicing.
+- `modelYear`: The year of the model they are servicing.
 
 Example JSON Request:
 
 ```json
 {
   "email": "JohnDoe123@example.com",
-  "name": "John Doe",
+  "customerName": "John Doe",
   "make": "Mazda",
   "model": "Miata",
   "modelYear": "2005"
 }
 ```
+
+The response from this endpoint is an appointment confirmation which includes:
+
+- `id`: The unique scheduled appointment identifier.
+- `serviceName`: The name of the scheduled service appointment.
+- `start`: The start date & time of the appointment.
+- `duration`: The duration of the appointment in a human-readable format.
+- `customerName`: The customer's full name.
+- `make`: The make of the vehicle they are servicing.
+- `model` The model of the vehicle they are servicing.
+- `modelYear`: The year of the model they are servicing.
 
 Example JSON Response:
 
@@ -206,10 +222,10 @@ Example JSON Response:
 {
   "id": "71p51iun6j0jajc7ln894q32pd",
   "serviceName": "Oil Change",
-  "apptStartTime": "2020-07-01T09:00:00.000Z",
-  "apptDuration": "30 minutes",
-  "name": "John Doe",
+  "start": "2020-07-01T09:00:00.000Z",
+  "duration": "30 minutes",
   "email": "JohnDoe123@gmail.com",
+  "customerName": "John Doe",
   "make": "Mazda",
   "model": "Miata",
   "modelYear": "2005"

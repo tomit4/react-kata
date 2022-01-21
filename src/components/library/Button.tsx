@@ -1,20 +1,28 @@
 import { ReactNode, ButtonHTMLAttributes } from "react";
+import { Link } from "react-router-dom";
 import "./Button.css";
 
 type Props = ButtonHTMLAttributes<HTMLButtonElement> & {
-  onClick: () => void;
+  onClick?: () => void;
+  href?: string;
   children: ReactNode;
 };
 
-const Button = ({ onClick, children, ...props }: Props) => {
+const Button = ({ onClick, href, children, ...props }: Props) => {
   return (
-    <button
-      onClick={onClick}
-      {...props}
-      className={`primary ${props.className}`}
-    >
-      {children}
-    </button>
+    <>
+      {href ? (
+        <Link to={href}>{children}</Link>
+      ) : (
+        <button
+          onClick={onClick}
+          {...props}
+          className={`primary ${props.className}`}
+        >
+          {children}
+        </button>
+      )}
+    </>
   );
 };
 

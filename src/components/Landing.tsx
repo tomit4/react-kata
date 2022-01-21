@@ -1,9 +1,11 @@
+import { heading } from "copy/landing";
 import "./Landing.css";
 
 const Landing = () => {
   return (
     <div className="splash">
-      <h1>Welcome to Lithia Motors</h1>
+      <h1>{heading}</h1>
+      {/* TODO: Landing logo */}
     </div>
   );
 };

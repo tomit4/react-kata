@@ -8,38 +8,38 @@ app.set("json spaces", 2);
 
 type Service = {
   id: number;
-  serviceName: string;
-  serviceDuration: number;
+  name: string;
+  duration: number;
 };
 
 type Appointment = {
   id: string;
-  serviceName: string;
+  name: string;
   serviceId: number;
-  apptStartTime: string;
-  apptDuration: number;
+  start: string;
+  duration: number;
 };
 
 const services: Service[] = [
   {
     id: 1,
-    serviceName: "Synthetic Oil Change",
-    serviceDuration: 1800,
+    name: "Synthetic Oil Change",
+    duration: 1800,
   },
   {
     id: 2,
-    serviceName: "Brake Inspection",
-    serviceDuration: 1800,
+    name: "Brake Inspection",
+    duration: 1800,
   },
   {
     id: 3,
-    serviceName: "Tire Rotation & Inspection",
-    serviceDuration: 3600,
+    name: "Tire Rotation & Inspection",
+    duration: 3600,
   },
   {
     id: 4,
-    serviceName: "Express Auto Detailing",
-    serviceDuration: 5400,
+    name: "Express Auto Detailing",
+    duration: 5400,
   },
 ];
 
@@ -68,10 +68,10 @@ services.forEach((service) => {
   for (let i = 0; i < getRandom(2, 4); ++i) {
     appointments.push({
       id: uuid(),
-      serviceName: service.serviceName,
+      name: service.name,
       serviceId: service.id,
-      apptStartTime: randomDate().toISOString(),
-      apptDuration: service.serviceDuration,
+      start: randomDate().toISOString(),
+      duration: service.duration,
     });
   }
 });
@@ -81,46 +81,48 @@ app.get("/services", (_req, res) => res.send(services));
 app.get("/appointments", (_req, res) => res.send(appointments));
 
 app.get("/appointments/:serviceId", (req, res) => {
-  res.send(
-    appointments
-      .filter((appt) => appt.serviceId === parseInt(req.params.serviceId))
-      .map(({ id, serviceName, apptStartTime, apptDuration }) => ({
-        id,
-        serviceName,
-        apptStartTime,
-        apptDuration,
-      }))
-  );
+  if (Math.random() < 0.2) {
+    res.status(500);
+  } else {
+    const serviceId = parseInt(req.params.serviceId);
+    if (serviceId) {
+      res.send(appointments.filter((appt) => appt.serviceId === serviceId));
+    } else {
+      res.status(400).send("invalid serviceId");
+    }
+  }
   res.end();
 });
 
 app.post("/appointments/:id", (req, res) => {
-  const { email, name, modelYear, make, model } = req.body;
+  const { email, customerName, modelYear, make, model } = req.body;
   if (!email) {
     res.status(400).send("invalid email address");
     res.end();
-  }
-  if (!name) {
+  } else if (!customerName) {
     res.status(400).send("invalid customer name");
     res.end();
-  }
-  if (!modelYear || !make || !model) {
+  } else if (!modelYear || !make || !model) {
     res.status(400).send("invalid make/model/modelYear");
     res.end();
   }
+
   const appt = appointments.find((appt) => appt.id === req.params.id);
-  if (!appt) {
+  if (appt) {
+    res.send({
+      id: uuid(),
+      serviceName: appt.name,
+      start: appt.start,
+      duration: appt.duration,
+      email,
+      customerName,
+      make,
+      model,
+      modelYear,
+    });
+  } else {
     res.status(400).send("invalid appointment id");
-    res.end();
   }
-  res.send({
-    ...appt,
-    email,
-    name,
-    make,
-    model,
-    modelYear,
-  });
   res.end();
 });
 
