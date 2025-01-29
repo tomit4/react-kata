@@ -170,13 +170,13 @@ Example JSON Response:
   {
     "id": "972836c4-a389-4b23-9709-78cf33c246ed",
     "name": "Replace Brakes",
-    "start": "2020-8-15T08:30:00.000Z",
+    "start": "2025-3-15T08:30:00.000Z",
     "duration": 3600
   },
   {
     "id": "b192cf15-dcc7-443d-8d2a-6604be7952f1",
     "name": "Replace Brakes",
-    "start": "2020-8-23T13:00:00.000Z",
+    "start": "2025-3-23T13:00:00.000Z",
     "duration": 3600
   }
 ]
@@ -222,7 +222,7 @@ Example JSON Response:
 {
   "id": "71p51iun6j0jajc7ln894q32pd",
   "serviceName": "Oil Change",
-  "start": "2020-07-01T09:00:00.000Z",
+  "start": "2025-03-01T09:00:00.000Z",
   "duration": "30 minutes",
   "email": "JohnDoe123@gmail.com",
   "customerName": "John Doe",
