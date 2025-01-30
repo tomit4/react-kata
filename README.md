@@ -104,6 +104,7 @@ book appointments such as oil changes, tire replacements, etc.
   weeks. When they select a service, they should be presented with all the
   available appointment slots for that service. They can then select a slot and
   book it, by entering their name, email, and vehicle information.
+- After booking, the customer should see a confirmation of their booking details.
 - "Almost forgot! We should put our contact info somewhere on the landing screen
   if people want to talk to someone. It's **supportbutton@lithia.com** and the
   number is **555-872-3289.**"
@@ -155,13 +156,20 @@ days. See the next section for details.
 
 ### `GET` /appointments/:serviceId
 
-Returns a list of appointment blocks currently available for the requested
+Returns a list of non-booked appointment blocks currently available for the requested
 `Service ID` within the next 14 days. Each contains:
 
 - `id`: The unique service appointment identifier.
-- `name`: The name of the service appointment.
+- `serviceName`: The name of the service appointment.
+- `serviceId`: The id of the service.
 - `start`: The start date & time of the appointment.
 - `duration`: The duration of the appointment in seconds.
+- `booked?`: A boolean indicating whether or not the appointment has been booked.
+- `email?`: An optional property indicating the booked customer's email;
+- `customerName?`: An optional property indicating the booked customer's full name;
+- `modelYear?`: An optional property indicating the booked customer's vehicle year;
+- `make?`: An optional property indicating the booked customer's vehicle make;
+- `model?`: An optional property indicating the booked customer's vehicle model;
 
 Example JSON Response:
 
@@ -171,24 +179,26 @@ Example JSON Response:
     "id": "972836c4-a389-4b23-9709-78cf33c246ed",
     "name": "Replace Brakes",
     "start": "2025-3-15T08:30:00.000Z",
-    "duration": 3600
+    "duration": 3600,
+    "booked": false
   },
   {
     "id": "b192cf15-dcc7-443d-8d2a-6604be7952f1",
     "name": "Replace Brakes",
     "start": "2025-3-23T13:00:00.000Z",
-    "duration": 3600
+    "duration": 3600,
+    "booked": false
   }
 ]
 ```
 
-### `POST` /appointments/:id
+### `PATCH` /appointments/book/:id
 
 Book the requested appointment for a particular customer and vehicle. Request
 body must contain:
 
 - `email`: The customer's contact email address.
-- `name`: The customer's full name.
+- `customerName`: The customer's full name.
 - `make`: The make of the vehicle they are servicing.
 - `model` The model of the vehicle they are servicing.
 - `modelYear`: The year of the model they are servicing.
@@ -211,6 +221,7 @@ The response from this endpoint is an appointment confirmation which includes:
 - `serviceName`: The name of the scheduled service appointment.
 - `start`: The start date & time of the appointment.
 - `duration`: The duration of the appointment in a human-readable format.
+- `booked`: A boolean confirming the booking status of the appointment.
 - `customerName`: The customer's full name.
 - `make`: The make of the vehicle they are servicing.
 - `model` The model of the vehicle they are servicing.
@@ -224,6 +235,7 @@ Example JSON Response:
   "serviceName": "Oil Change",
   "start": "2025-03-01T09:00:00.000Z",
   "duration": "30 minutes",
+  "booked": true,
   "email": "JohnDoe123@gmail.com",
   "customerName": "John Doe",
   "make": "Mazda",

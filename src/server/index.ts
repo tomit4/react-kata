@@ -14,33 +14,23 @@ type Service = {
 
 type Appointment = {
   id: string;
-  name: string;
+  serviceName: string;
   serviceId: number;
   start: string;
   duration: number;
+  booked: boolean;
+  email?: string;
+  customerName?: string;
+  modelYear?: number;
+  make?: string;
+  model?: string;
 };
 
 const services: Service[] = [
-  {
-    id: 1,
-    name: "Synthetic Oil Change",
-    duration: 1800,
-  },
-  {
-    id: 2,
-    name: "Brake Inspection",
-    duration: 1800,
-  },
-  {
-    id: 3,
-    name: "Tire Rotation & Inspection",
-    duration: 3600,
-  },
-  {
-    id: 4,
-    name: "Express Auto Detailing",
-    duration: 5400,
-  },
+  { id: 1, name: "Synthetic Oil Change", duration: 1800 },
+  { id: 2, name: "Brake Inspection", duration: 1800 },
+  { id: 3, name: "Tire Rotation & Inspection", duration: 3600 },
+  { id: 4, name: "Express Auto Detailing", duration: 5400 },
 ];
 
 const getRandom = (min: number, max: number) => {
@@ -68,10 +58,11 @@ services.forEach((service) => {
   for (let i = 0; i < getRandom(2, 4); ++i) {
     appointments.push({
       id: uuid(),
-      name: service.name,
+      serviceName: service.name,
       serviceId: service.id,
       start: randomDate().toISOString(),
       duration: service.duration,
+      booked: false,
     });
   }
 });
@@ -82,11 +73,15 @@ app.get("/appointments", (_req, res) => res.send(appointments));
 
 app.get("/appointments/:serviceId", (req, res) => {
   if (Math.random() < 0.2) {
-    res.status(500);
+    return res.status(500);
   } else {
     const serviceId = parseInt(req.params.serviceId);
     if (serviceId) {
-      res.send(appointments.filter((appt) => appt.serviceId === serviceId));
+      res.send(
+        appointments.filter(
+          (appt) => appt.serviceId === serviceId && !appt.booked
+        )
+      );
     } else {
       res.status(400).send("invalid serviceId");
     }
@@ -94,34 +89,41 @@ app.get("/appointments/:serviceId", (req, res) => {
   res.end();
 });
 
-app.post("/appointments/:id", (req, res) => {
+app.patch("/appointments/book/:id", (req, res) => {
   const { email, customerName, modelYear, make, model } = req.body;
-  if (!email) {
-    res.status(400).send("invalid email address");
-    res.end();
-  } else if (!customerName) {
-    res.status(400).send("invalid customer name");
-    res.end();
-  } else if (!modelYear || !make || !model) {
-    res.status(400).send("invalid make/model/modelYear");
-    res.end();
-  }
-
   const appt = appointments.find((appt) => appt.id === req.params.id);
-  if (appt) {
-    res.send({
-      id: uuid(),
-      serviceName: appt.name,
-      start: appt.start,
-      duration: appt.duration,
+
+  if (!appt) {
+    return res.status(400).send("Invalid appointment id");
+  } else if (appt.booked) {
+    return res.status(400).send("This appointment is already booked.");
+  } else if (!email) {
+    return res.status(400).send("invalid email address");
+  } else if (!customerName) {
+    return res.status(400).send("invalid customer name");
+  } else if (!modelYear || !make || !model) {
+    return res.status(400).send("invalid make/model/modelYear");
+  } else {
+    Object.assign(appt, {
+      booked: true,
       email,
       customerName,
       make,
       model,
       modelYear,
     });
-  } else {
-    res.status(400).send("invalid appointment id");
+    res.send({
+      id: appt.id,
+      serviceName: appt.serviceName,
+      start: appt.start,
+      duration: appt.duration,
+      booked: appt.booked,
+      email: appt.email,
+      customerName: appt.customerName,
+      modelYear: appt.modelYear,
+      make: appt.make,
+      model: appt.model,
+    });
   }
   res.end();
 });
