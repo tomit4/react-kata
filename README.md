@@ -25,17 +25,21 @@ It uses [Create React App](https://github.com/facebook/create-react-app) with
 a REST API server on a local proxy. (e.g. API calls to `/services` will forward
 to `http://localhost:2000/services`)
 
-### Notes
+### Instructions & Notes
 
-- **Remember**: This is an exercise and do not need to follow as robust a
+- **Remember**: This is an exercise and you do not need to follow as robust a
   process as a production application.
 - This exercise uses [Functional
   React](https://reactjs.org/docs/hooks-intro.html) with hooks, so be prepared
   to demonstrate your knowledge.
-- The intent is to work through this together during the interview and should
-  not be done ahead of time.
-- You are not expected to finish. The intent is to see how you work through
-  problems given the constraints.
+- Please fork the repository to your own GitHub account before starting the project.
+  This will allow you to work on your own copy and track your progress. Be sure to
+  push your code to your repo at least 24 hours before the interview, so it's available
+  for review during the live session.
+- The goal is to work through the project independently before your interview
+  session. Plan to spend 1-2 hours on it. Be prepared to discuss your code and
+  decision-making process during the live interview. We will then spend additional
+  time enhancing the project in a live-coding session during the technical interview.
 
 ## Installation & Setup
 
@@ -72,13 +76,13 @@ npm test
 ## Tasks
 
 1. **Discovery**: Read the requirements and familiarize yourself with the
-   codebase and API. (~10-15 min)
-1. **Organize/Plan**: Review each feature and talk through any design &
-   implementation choices. Mention pros and cons of each decision. Base your
-   choices on importance to Product + UX, as well as technical complexity. (~10
+   codebase and API. (~10 min)
+1. **Organize/Plan**: Review each feature and think through any design &
+   implementation choices, considering pros and cons of each decision. Base your
+   choices on importance to Product + UX, as well as technical complexity. (~15-30
    min)
 1. **Implement/Test**: Start building the features from the provided starter
-   application. (~45-60 min)
+   application. (~60-90 min)
 
 ## Requirements
 
