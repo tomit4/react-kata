@@ -86,7 +86,7 @@ npm test
 
 ## Requirements
 
-Lithia Motors takes pride in helping people in all phases of their
+Lithia & Driveway takes pride in helping people in all phases of their
 car-ownership. It's up to our scrappy team to build a snappy UI to help users
 book appointments such as oil changes, tire replacements, etc.
 
@@ -108,9 +108,9 @@ book appointments such as oil changes, tire replacements, etc.
   weeks. When they select a service, they should be presented with all the
   available appointment slots for that service. They can then select a slot and
   book it, by entering their name, email, and vehicle information.
-- After booking, the customer should see a confirmation of their booking details.
+- "After booking, the customer should see a confirmation of their booking details."
 - "Almost forgot! We should put our contact info somewhere on the landing screen
-  if people want to talk to someone. It's **supportbutton@lithia.com** and the
+  if people want to talk to someone. It's **supportbutton@driveway.com** and the
   number is **555-872-3289.**"
 
 ## Resources
