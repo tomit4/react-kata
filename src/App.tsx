@@ -1,15 +1,13 @@
-import { BrowserRouter, Switch, Route } from "react-router-dom";
-import LandingPage from "./components/Landing";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Landing from "components/Landing";
 
 const App = () => {
   return (
     <main>
       <BrowserRouter>
-        <Switch>
-          <Route path="/">
-            <LandingPage />
-          </Route>
-        </Switch>
+        <Routes>
+          <Route path="/" element={<Landing />} />
+        </Routes>
       </BrowserRouter>
     </main>
   );

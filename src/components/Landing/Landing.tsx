@@ -5,7 +5,7 @@ const Landing = () => {
   return (
     <div className="splash">
       <h1>{heading}</h1>
-      {/* TODO: Landing logo */}
+      {/* TODO: add logo here */}
     </div>
   );
 };
