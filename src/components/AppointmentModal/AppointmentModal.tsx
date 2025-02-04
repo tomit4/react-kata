@@ -1,7 +1,12 @@
 import { useState } from "react";
-import type { FormEvent, ChangeEvent } from "react";
+import { bookAppointmentById } from "../../utils/services";
 
-import type { AppointmentType, FormDataType } from "../../types";
+import type { FormEvent, ChangeEvent } from "react";
+import type {
+  AppointmentType,
+  FormDataType,
+  BookingDetailsType,
+} from "../../types";
 
 import { convertISODate } from "../../utils/utilities";
 import "./AppointmentModal.css";
@@ -9,7 +14,7 @@ import "./AppointmentModal.css";
 import Button from "../library/Button";
 
 type AppointmentModalProps = {
-  isOpen: Boolean;
+  isOpen: boolean;
   onClose: () => void;
   selectedAppointment: AppointmentType;
 };
@@ -26,6 +31,8 @@ const AppointmentModal = ({
     model: "",
     modelYear: "",
   });
+  const [bookingDetails, setBookingDetails] =
+    useState<BookingDetailsType | null>(null);
 
   if (!isOpen) return null;
 
@@ -35,7 +42,15 @@ const AppointmentModal = ({
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    console.log("submit logic goes here :=>");
+    const bookingDetails = await bookAppointmentById(
+      selectedAppointment.id,
+      formData,
+    );
+    if (bookingDetails) {
+      setBookingDetails(bookingDetails);
+    } else {
+      // setErrMsg("")
+    }
   };
 
   return (
@@ -94,6 +109,7 @@ const AppointmentModal = ({
               required
             />
           </label>
+          {bookingDetails ? <p>{bookingDetails.customerName}</p> : <div></div>}
           <Button className="submit-button" type="submit">
             Submit
           </Button>
