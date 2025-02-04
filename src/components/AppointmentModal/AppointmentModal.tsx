@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { bookAppointmentById } from "../../utils/services";
+import { convertISODate } from "../../utils/utilities";
 
 import type { FormEvent, ChangeEvent } from "react";
 import type {
@@ -8,13 +9,14 @@ import type {
   BookingDetailsType,
 } from "../../types";
 
-import { convertISODate } from "../../utils/utilities";
+import BookingForm from "../BookingForm";
+import BookingDetails from "../BookingDetails";
 import "./AppointmentModal.css";
 
 import Button from "../library/Button";
 
 type AppointmentModalProps = {
-  isOpen: boolean;
+  isOpen: Boolean;
   onClose: () => void;
   selectedAppointment: AppointmentType;
 };
@@ -58,62 +60,18 @@ const AppointmentModal = ({
       <div className="modal-content">
         <h2>Book Appointment For</h2>
         <h3>{convertISODate(selectedAppointment.start)}</h3>
-        <form className="modal-form" onSubmit={handleSubmit}>
-          <label>
-            Name:
-            <input
-              type="text"
-              name="customerName"
-              value={formData.customerName}
-              onChange={handleFormChange}
-              required
-            />
-          </label>
-          <label>
-            Email:
-            <input
-              type="text"
-              name="email"
-              value={formData.email}
-              onChange={handleFormChange}
-              required
-            />
-          </label>
-          <label>
-            Make:
-            <input
-              type="text"
-              name="make"
-              value={formData.make}
-              onChange={handleFormChange}
-              required
-            />
-          </label>
-          <label>
-            Model:
-            <input
-              type="text"
-              name="model"
-              value={formData.model}
-              onChange={handleFormChange}
-              required
-            />
-          </label>
-          <label>
-            Model Year:
-            <input
-              type="text"
-              name="modelYear"
-              value={formData.modelYear}
-              onChange={handleFormChange}
-              required
-            />
-          </label>
-          {bookingDetails ? <p>{bookingDetails.customerName}</p> : <div></div>}
-          <Button className="submit-button" type="submit">
-            Submit
-          </Button>
-        </form>
+        {!bookingDetails ? (
+          <BookingForm
+            formData={formData}
+            handleFormChange={handleFormChange}
+            handleSubmit={handleSubmit}
+          />
+        ) : (
+          <BookingDetails />
+        )}
+        <Button className="close-button" onClick={onClose}>
+          Close
+        </Button>
       </div>
     </div>
   );
