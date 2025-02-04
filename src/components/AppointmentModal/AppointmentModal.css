@@ -28,3 +28,18 @@
     width: 90%;
     text-align: center;
 }
+
+.close-button {
+    background: none;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    border: none;
+    cursor: pointer;
+    scale: 1.5;
+}
+
+.close-button:hover {
+    background: none;
+    scale: 1.75;
+}

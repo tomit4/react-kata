@@ -11,9 +11,11 @@ import type {
 
 import BookingForm from "../BookingForm";
 import BookingDetails from "../BookingDetails";
-import "./AppointmentModal.css";
 
 import Button from "../library/Button";
+
+import "./AppointmentModal.css";
+import CloseIcon from "../../assets/close-icon.svg";
 
 type AppointmentModalProps = {
   isOpen: Boolean;
@@ -67,10 +69,14 @@ const AppointmentModal = ({
             handleSubmit={handleSubmit}
           />
         ) : (
-          <BookingDetails />
+          <BookingDetails bookingDetails={bookingDetails} />
         )}
         <Button className="close-button" onClick={onClose}>
-          Close
+          <img
+            className={"close-icon"}
+            src={CloseIcon}
+            alt="Close Modal Button"
+          />
         </Button>
       </div>
     </div>
