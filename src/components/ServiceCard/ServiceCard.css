@@ -9,6 +9,14 @@
     padding: 50px 0 6px 0;
 }
 
+.service-card-closed {
+    border-bottom: none;
+}
+
+.service-card-opened {
+    border-bottom: 5px solid #c5c5c5;
+}
+
 .caret-icon {
     width: 40px;
     margin-top: 1em;
