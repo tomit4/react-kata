@@ -3,6 +3,8 @@ import type { FormDataType } from "../../types";
 
 import Button from "../library/Button";
 
+import "./BookingForm.css";
+
 type BookingFormProps = {
   formData: FormDataType;
   handleFormChange: (e: ChangeEvent<HTMLInputElement>) => void;
