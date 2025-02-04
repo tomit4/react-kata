@@ -2,6 +2,7 @@ import { useState } from "react";
 import { getAppointmentsByServiceId } from "../../utils/services";
 import type { AppointmentType } from "../../types"
 
+import AppointmentList from "../AppointmentList";
 import CaretButton from "../library/CaretButton";
 
 import "./ServiceCard.css";
@@ -63,11 +64,10 @@ const ServiceCard = ({ id, name }: ServiceCardProps) => {
       </div>
       <div>
         {caretIsReversed && appointmentList.length > 0 && (
-          <ul>
-            {appointmentList.map((appointment) => (
-              <li>{appointment.id}</li>
-            ))}
-          </ul>
+          <AppointmentList appointmentList={appointmentList} />
+        )}
+        {caretIsReversed && appointmentList.length <= 0 && (
+            <p>No Appointments Available For This Service</p>
         )}
       </div>
     </>
