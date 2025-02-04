@@ -1,5 +1,6 @@
 import { useState } from "react";
 import type { AppointmentType } from "../../types";
+import { convertISODate } from "../../utils/utilities";
 
 import "./AppointmentList.css";
 import Button from "../library/Button";
@@ -10,6 +11,10 @@ type AppointmentListProps = {
 
 const AppointmentList = ({ appointmentList }: AppointmentListProps) => {
   const [selectedAppointment, setSelectedAppointment] = useState<AppointmentType>();
+
+  const handleAppointmentSelect = (appointment: AppointmentType) => {
+    setSelectedAppointment(appointment);
+  };
 
   return (
     <div className="appointment-list">
@@ -25,10 +30,10 @@ const AppointmentList = ({ appointmentList }: AppointmentListProps) => {
                 name="appointment"
                 value={appointment.id}
                 checked={selectedAppointment?.id === appointment.id}
-                onChange={() => console.log("on change event hit")}
+                onChange={() => handleAppointmentSelect(appointment)}
               />
               <label htmlFor={appointment.id}>
-                {appointment.start}
+                {convertISODate(appointment.start)}
               </label>
             </div>
           ))}
