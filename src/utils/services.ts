@@ -1,4 +1,4 @@
-import type { ServiceType } from "../types";
+import type { ServiceType, AppointmentType } from "../types";
 
 const getServices = async (): Promise<ServiceType[]> => {
   try {
@@ -11,4 +11,17 @@ const getServices = async (): Promise<ServiceType[]> => {
   }
 };
 
-export { getServices };
+const getAppointmentsByServiceId = async (serviceId: number): Promise<AppointmentType[]> => {
+  try {
+    const response = await fetch(
+      `http://localhost:2000/appointments/${serviceId}`,
+    );
+    const appointments = await response.json();
+    return appointments;
+  } catch (err) {
+    console.error("ERROR :=>", err);
+    return [];
+  }
+};
+
+export { getServices, getAppointmentsByServiceId };

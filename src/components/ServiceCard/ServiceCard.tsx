@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { getAppointmentsByServiceId } from "../../utils/services";
+import type { AppointmentType } from "../../types"
 
 import CaretButton from "../library/CaretButton";
 
@@ -25,16 +27,30 @@ type ServiceCardProps = {
 
 const ServiceCard = ({ id, name }: ServiceCardProps) => {
   const [caretIsReversed, setIsReversed] = useState<Boolean>(false);
+  const [appointmentList, setAppointmentList] = useState<AppointmentType[]>([]);
+
+  const handleGrabAppointmentsById = async () => {
+    const appointments = await getAppointmentsByServiceId(id);
+    return appointments;
+  };
 
   const toggleCaretClick = async () => {
     setIsReversed((prevState) => !prevState);
+    if (!caretIsReversed) {
+      const appointments = await handleGrabAppointmentsById();
+      if (appointments) {
+        setAppointmentList(appointments);
+      }
+    }
   }
 
   const iconSrc = serviceIcons[id];
 
   return (
     <>
-      <div className="service-card">
+      <div
+        className={`service-card ${caretIsReversed ? "service-card-closed" : "service-card-opened"}`}
+      >
         <img src={iconSrc} className="service-icon" alt={`${name} Icon`} />
         <h1>{name}</h1>
         <CaretButton onClick={toggleCaretClick}>
@@ -44,6 +60,15 @@ const ServiceCard = ({ id, name }: ServiceCardProps) => {
             alt="A Standard Caret Icon"
           />
         </CaretButton>
+      </div>
+      <div>
+        {caretIsReversed && appointmentList.length > 0 && (
+          <ul>
+            {appointmentList.map((appointment) => (
+              <li>{appointment.id}</li>
+            ))}
+          </ul>
+        )}
       </div>
     </>
   )
