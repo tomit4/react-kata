@@ -1,5 +1,6 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Landing from "components/Landing";
+import Scheduler from "components/Scheduler";
 
 const App = () => {
   return (
@@ -12,7 +13,7 @@ const App = () => {
       >
         <Routes>
           <Route path="/" element={<Landing />} />
-          <Route path="/scheduler" element={<></>} />
+          <Route path="/scheduler" element={<Scheduler />} />
         </Routes>
       </BrowserRouter>
     </main>
