@@ -24,6 +24,12 @@ type ServiceCardProps = {
 }
 
 const ServiceCard = ({ id, name }: ServiceCardProps) => {
+  const [caretIsReversed, setIsReversed] = useState<Boolean>(false);
+
+  const toggleCaretClick = async () => {
+    setIsReversed((prevState) => !prevState);
+  }
+
   const iconSrc = serviceIcons[id];
 
   return (
@@ -31,9 +37,9 @@ const ServiceCard = ({ id, name }: ServiceCardProps) => {
       <div className="service-card">
         <img src={iconSrc} className="service-icon" alt={`${name} Icon`} />
         <h1>{name}</h1>
-        <CaretButton onClick={() => console.log("hello world!")}>
+        <CaretButton onClick={toggleCaretClick}>
           <img
-            className="caret-icon"
+            className={`caret-icon ${caretIsReversed ? "caret-icon-reversed" : ""}`}
             src={CaretIcon}
             alt="A Standard Caret Icon"
           />

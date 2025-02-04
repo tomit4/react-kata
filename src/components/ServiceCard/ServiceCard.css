@@ -8,3 +8,18 @@
     border-radius: 5px;
     padding: 50px 0 6px 0;
 }
+
+.caret-icon {
+    width: 40px;
+    margin-top: 1em;
+    height: auto;
+}
+
+.caret-icon:hover {
+    cursor: pointer;
+    scale: 1.1;
+}
+
+.caret-icon-reversed {
+    transform: scale(-1, -1);
+}
