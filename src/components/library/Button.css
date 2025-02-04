@@ -15,3 +15,7 @@
   color: lightgray;
   cursor: not-allowed;
 }
+
+.link {
+    text-decoration: none;
+}

@@ -12,6 +12,7 @@ const App = () => {
       >
         <Routes>
           <Route path="/" element={<Landing />} />
+          <Route path="/scheduler" element={<></>} />
         </Routes>
       </BrowserRouter>
     </main>

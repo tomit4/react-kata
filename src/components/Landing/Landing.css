@@ -2,3 +2,21 @@
   margin-top: 200px;
   text-align: center;
 }
+
+.splash-intro {
+  justify-content: center;
+  width: 500px;
+  margin: 0 auto;
+  padding: 1em 0 4em 0;
+  color: black;
+}
+
+.get-started-button {
+    padding: 1em 7em;
+    font-size: 100%;
+    border-radius: 5px;
+}
+
+.splash-footer {
+    margin: 4em;
+}
