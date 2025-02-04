@@ -1,0 +1,17 @@
+.secondary {
+  background-color: white;
+  border: none;
+  color: white;
+  cursor: pointer;
+  font-weight: bold;
+  padding: 5px 10px;
+}
+.secondary:hover {
+  background-color: white;
+}
+.secondary:disabled,
+.secondary:disabled:hover {
+  background-color: gray;
+  color: lightgray;
+  cursor: not-allowed;
+}

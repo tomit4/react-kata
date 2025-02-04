@@ -1,7 +1,10 @@
 import { useState } from "react";
 
+import CaretButton from "../library/CaretButton";
+
 import "./ServiceCard.css";
 
+import CaretIcon from "../../assets/caret-icon.svg";
 import DetailIcon from "../../assets/detail-icon.svg";
 import OilChangeIcon from "../../assets/oil-change-icon.svg";
 import TiresIcon from "../../assets/tires-icon.svg";
@@ -25,8 +28,17 @@ const ServiceCard = ({ id, name }: ServiceCardProps) => {
 
   return (
     <>
-      <img src={iconSrc} className="service-icon" alt={`${name} Icon`} />
-      <h1>{name}</h1>
+      <div className="service-card">
+        <img src={iconSrc} className="service-icon" alt={`${name} Icon`} />
+        <h1>{name}</h1>
+        <CaretButton onClick={() => console.log("hello world!")}>
+          <img
+            className="caret-icon"
+            src={CaretIcon}
+            alt="A Standard Caret Icon"
+          />
+        </CaretButton>
+      </div>
     </>
   )
 };
