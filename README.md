@@ -1,249 +1,85 @@
 # React Kata
 
-## Table of Contents
+## Introduction 😀
 
-- [Introdution](#introduction)
-- [Installation & Setup](#installation--setup)
-- [Tasks](#tasks)
-- [Requirements](#requirements)
-  - [Engineering Manager](#engineering-manager)
-  - [Product Owner & Design/UX](product-owner--designux)
-- [Resources](#resources)
-- [API Reference](#api-reference)
-  - [GET /services](#get-services)
-  - [GET /appointments/:serviceId](#get-appointmentsserviceId)
-  - [POST /appointments/:id](#post-appointmentsid)
+This repository contains my submission for the takehome project from
+[Lithia & Driveway](https://www.lithia.com/lithia-and-driveway.htm).
 
-## Introduction
+### A Note On Difficulties With Dependencies 🍱
 
-![React Kata](https://github.com/driveway-engineering/react-kata/blob/main/src/assets/logo.png?raw=true)
+Due to issues with the original repository's use of NodeJS version 14.15.1, and
+also the conflicting version number of 17.0.1 in the original `.nvmrc`, I ran
+into dependency and webpack issues on both versions that would have required
+what I estimate to be multiple hours of debugging due to `react-scripts` using
+`.steampath` in one of its dependencies that conflicts with the game platform
+Steam on my local machine (A variant of Arch Linux).
 
-This project provides an interviewing screen for React engineers by providing a
-mock project to build.
+Thusly I opted to utilize a more familiar approach to my workflow, that of using
+the more modern [Vite](https://vite.dev/guide/). I have therefore provided an
+updated `.nvmrc`, which instructs `nvm` to utilize NodeJS version 22.13.1. I was
+able to successfully complete my submission using this version number and
+utilizing Vite instead of create-react-app/webpack.
 
-It uses [Create React App](https://github.com/facebook/create-react-app) with
-a REST API server on a local proxy. (e.g. API calls to `/services` will forward
-to `http://localhost:2000/services`)
+### Installation and Getting Started 🔧
 
-### Instructions & Notes
+As mentioned above, be sure you have NodeJS version 22.13.1 prior to
+installation, this should also come with the necessary `npm` package manager
+needed to install the dependencies.
 
-- **Remember**: This is an exercise and you do not need to follow as robust a
-  process as a production application.
-- This exercise uses [Functional
-  React](https://reactjs.org/docs/hooks-intro.html) with hooks, so be prepared
-  to demonstrate your knowledge.
-- Please fork the repository to your own GitHub account before starting the project.
-  This will allow you to work on your own copy and track your progress. Be sure to
-  push your code to your repo at least 24 hours before the interview, so it's available
-  for review during the live session.
-- The goal is to work through the project independently before your interview
-  session. Plan to spend 1-2 hours on it. Be prepared to discuss your code and
-  decision-making process during the live interview. We will then spend additional
-  time enhancing the project in a live-coding session during the technical interview.
-
-## Installation & Setup
-
-Ensure you have the following installed:
-
-- [NodeJS 14.15.1](https://nodejs.org/en/)
-
-Execute the following commands to get started:
+First clone this repository in a directory of your choosing using `git` and `cd`
+into the new directory:
 
 ```sh
-git clone https://github.com/driveway-engineering/react-kata.git
-cd react-kata
+git clone https://github.com/tomit4/react-kata && cd react-kata
+```
+
+Once within the `react-kata` directory, go ahead and install the dependencies
+using `npm`:
+
+```sh
 npm install
 ```
 
-Start the local app development server:
+After installation of the dependencies is complete, go ahead and open up two
+terminals, each should have their shells navigated into the `react-kata`
+directory. From within here, in one terminal, you'll run the frontend server,
+and the other will be used to run the backend server.
+
+In one terminal, run the frontend server using the `start` script:
 
 ```sh
-npm start
+npm run start
 ```
 
-In a separate terminal start the REST API server:
+And in the other terminal, run the backend server using the `server` script:
 
 ```sh
 npm run server
 ```
 
-To run unit tests:
+Once done, navigate to <b>localhost:3000</b> in your browser and you should see
+the frontend to the react-kata presented to you.
+
+### A Note On Testing 🧪
+
+Although during my time completing this test, I was unable to get to robust unit
+testing in a timely manner, I did set up [Vitest](https://vitest.dev/guide/)
+along with
+[React Testing Library](https://testing-library.com/docs/react-testing-library/intro/)
+in order to best simulate the original tests that were included in the original
+version of the project. You can also run tests (all passing by default) by
+running:
 
 ```sh
-npm test
+npm run test
 ```
 
-## Tasks
+### Original Project 📝
 
-1. **Discovery**: Read the requirements and familiarize yourself with the
-   codebase and API. (~10 min)
-1. **Organize/Plan**: Review each feature and think through any design &
-   implementation choices, considering pros and cons of each decision. Base your
-   choices on importance to Product + UX, as well as technical complexity. (~15-30
-   min)
-1. **Implement/Test**: Start building the features from the provided starter
-   application. (~60-90 min)
+[Here](https://github.com/driveway-engineering/react-kata) is the original
+README from Lithia that gives the project's instructions.
 
-## Requirements
+### Thank You! 🙏
 
-Lithia & Driveway takes pride in helping people in all phases of their
-car-ownership. It's up to our scrappy team to build a snappy UI to help users
-book appointments such as oil changes, tire replacements, etc.
-
-### Engineering Manager
-
-- "You should feel free to use any libraries or frameworks you need, but let's
-  not overbuild this. Getting the tech right is my **TOP PRIORITY!**"
-- "These back-end engineers can't make a stable web service to save their lives!
-  Make sure the pages still work even if the backend services are being spotty.
-  Resiliency is my **TOP PRIORITY!**"
-
-### Product Owner & Design/UX
-
-- "Making sure people can do business with us is most important goal. As long as
-  people can book an appointment with us, our shareholders will be happy!"
-- "We want people to see our Logo first and a little blurb about what we
-  do. After that they should be able to click a button to get the ball rolling."
-- "The user should be presented with all the services available in the next two
-  weeks. When they select a service, they should be presented with all the
-  available appointment slots for that service. They can then select a slot and
-  book it, by entering their name, email, and vehicle information.
-- "After booking, the customer should see a confirmation of their booking details."
-- "Almost forgot! We should put our contact info somewhere on the landing screen
-  if people want to talk to someone. It's **supportbutton@driveway.com** and the
-  number is **555-872-3289.**"
-
-## Resources
-
-- `src/assets/`: Images & icons provided by designers.
-- `src/components/`: Initial project components to build from.
-- `src/server/`: Mock API server providing service information.
-- `src/utils/`: Utility and middleware libraries.
-- `wireframes`: Sample wireframes provided by designers.
-
-## API Reference
-
-### `GET` /services
-
-Returns a list of services available within the next 14 days. Each contains:
-
-- `id`: The unique service identifier.
-- `name`: The name of the service.
-- `duration`: The duration of the service in seconds.
-
-Example JSON response:
-
-```json
-[
-  {
-    "id": 1,
-    "name": "Replace Brakes",
-    "duration": 3600
-  },
-  {
-    "id": 2,
-    "name": "Oil Change",
-    "duration": 1800
-  },
-  {
-    "id": 3,
-    "name": "Rotate Tires",
-    "duration": 1800
-  }
-]
-```
-
-### `GET` /appointments/
-
-Returns a list of all currently available appointment blocks within the next 14
-days. See the next section for details.
-
-### `GET` /appointments/:serviceId
-
-Returns a list of non-booked appointment blocks currently available for the requested
-`Service ID` within the next 14 days. Each contains:
-
-- `id`: The unique service appointment identifier.
-- `serviceName`: The name of the service appointment.
-- `serviceId`: The id of the service.
-- `start`: The start date & time of the appointment.
-- `duration`: The duration of the appointment in seconds.
-- `booked?`: A boolean indicating whether or not the appointment has been booked.
-- `email?`: An optional property indicating the booked customer's email;
-- `customerName?`: An optional property indicating the booked customer's full name;
-- `modelYear?`: An optional property indicating the booked customer's vehicle year;
-- `make?`: An optional property indicating the booked customer's vehicle make;
-- `model?`: An optional property indicating the booked customer's vehicle model;
-
-Example JSON Response:
-
-```json
-[
-  {
-    "id": "972836c4-a389-4b23-9709-78cf33c246ed",
-    "name": "Replace Brakes",
-    "start": "2025-3-15T08:30:00.000Z",
-    "duration": 3600,
-    "booked": false
-  },
-  {
-    "id": "b192cf15-dcc7-443d-8d2a-6604be7952f1",
-    "name": "Replace Brakes",
-    "start": "2025-3-23T13:00:00.000Z",
-    "duration": 3600,
-    "booked": false
-  }
-]
-```
-
-### `PATCH` /appointments/book/:id
-
-Book the requested appointment for a particular customer and vehicle. Request
-body must contain:
-
-- `email`: The customer's contact email address.
-- `customerName`: The customer's full name.
-- `make`: The make of the vehicle they are servicing.
-- `model` The model of the vehicle they are servicing.
-- `modelYear`: The year of the model they are servicing.
-
-Example JSON Request:
-
-```json
-{
-  "email": "JohnDoe123@example.com",
-  "customerName": "John Doe",
-  "make": "Mazda",
-  "model": "Miata",
-  "modelYear": "2005"
-}
-```
-
-The response from this endpoint is an appointment confirmation which includes:
-
-- `id`: The unique scheduled appointment identifier.
-- `serviceName`: The name of the scheduled service appointment.
-- `start`: The start date & time of the appointment.
-- `duration`: The duration of the appointment in a human-readable format.
-- `booked`: A boolean confirming the booking status of the appointment.
-- `customerName`: The customer's full name.
-- `make`: The make of the vehicle they are servicing.
-- `model` The model of the vehicle they are servicing.
-- `modelYear`: The year of the model they are servicing.
-
-Example JSON Response:
-
-```json
-{
-  "id": "71p51iun6j0jajc7ln894q32pd",
-  "serviceName": "Oil Change",
-  "start": "2025-03-01T09:00:00.000Z",
-  "duration": "30 minutes",
-  "booked": true,
-  "email": "JohnDoe123@gmail.com",
-  "customerName": "John Doe",
-  "make": "Mazda",
-  "model": "Miata",
-  "modelYear": "2005"
-}
-```
+Thank you for the opportunity to showcase my skills and I look forward to our
+interview!
