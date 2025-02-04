@@ -4,6 +4,7 @@ import { convertISODate } from "../../utils/utilities";
 
 import "./AppointmentList.css";
 import Button from "../library/Button";
+import AppointmentModal from "../AppointmentModal";
 
 type AppointmentListProps = {
   appointmentList: AppointmentType[];
@@ -11,10 +12,21 @@ type AppointmentListProps = {
 
 const AppointmentList = ({ appointmentList }: AppointmentListProps) => {
   const [selectedAppointment, setSelectedAppointment] = useState<AppointmentType>();
+  const [isModalOpen, setIsModalOpen] = useState<Boolean>(false);
 
   const handleAppointmentSelect = (appointment: AppointmentType) => {
     setSelectedAppointment(appointment);
   };
+  const handleOpenModal = () => {
+    if (selectedAppointment) {
+      setIsModalOpen(true);
+    }
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+  };
+
 
   return (
     <div className="appointment-list">
@@ -38,9 +50,20 @@ const AppointmentList = ({ appointmentList }: AppointmentListProps) => {
             </div>
           ))}
         </form>
-        <Button className="booking-button" onClick={() => {console.log("book appointment")}}>
+        <Button className="booking-button" onClick={handleOpenModal}>
           Book Now
         </Button>
+        {selectedAppointment ? (
+          <AppointmentModal
+            isOpen={isModalOpen}
+            onClose={handleCloseModal}
+            selectedAppointment={selectedAppointment}
+          />
+        ): (
+          <div>
+            {/* TODO: Set up error message: "Please select an appointment to book!" */}
+          </div>
+        )}
     </div>
   )
 };
