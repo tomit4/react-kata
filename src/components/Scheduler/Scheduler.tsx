@@ -1,11 +1,6 @@
 import { useState, useEffect } from "react"
 import { getServices } from "../../utils/services";
-
-type ServiceType = {
-  id: number;
-  name: string;
-  duration: number;
-}
+import type { ServiceType } from "../../types";
 
 const Scheduler = () => {
   const [serviceList, setServiceList] = useState<ServiceType[]>([]);
