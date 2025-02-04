@@ -39,7 +39,7 @@ const getRandom = (min: number, max: number) => {
 
 const uuid = () => {
   return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, function (c) {
-    var r = (Math.random() * 16) | 0,
+    const r = (Math.random() * 16) | 0,
       v = c === "x" ? r : (r & 0x3) | 0x8;
     return v.toString(16);
   });
@@ -49,11 +49,11 @@ const randomDate = () => {
   const start = new Date();
   const end = new Date(Date.now() + 12096e5);
   return new Date(
-    start.getTime() + Math.random() * (end.getTime() - start.getTime())
+    start.getTime() + Math.random() * (end.getTime() - start.getTime()),
   );
 };
 
-let appointments: Appointment[] = [];
+const appointments: Appointment[] = [];
 services.forEach((service) => {
   for (let i = 0; i < getRandom(2, 4); ++i) {
     appointments.push({
@@ -67,10 +67,13 @@ services.forEach((service) => {
   }
 });
 
+// @ts-expect-error res can be any
 app.get("/services", (_req, res) => res.send(services));
 
+// @ts-expect-error res can be any
 app.get("/appointments", (_req, res) => res.send(appointments));
 
+// @ts-expect-error res can be any
 app.get("/appointments/:serviceId", (req, res) => {
   if (Math.random() < 0.2) {
     return res.status(500);
@@ -79,8 +82,8 @@ app.get("/appointments/:serviceId", (req, res) => {
     if (serviceId) {
       res.send(
         appointments.filter(
-          (appt) => appt.serviceId === serviceId && !appt.booked
-        )
+          (appt) => appt.serviceId === serviceId && !appt.booked,
+        ),
       );
     } else {
       res.status(400).send("invalid serviceId");
@@ -89,6 +92,7 @@ app.get("/appointments/:serviceId", (req, res) => {
   res.end();
 });
 
+// @ts-expect-error res can be any
 app.patch("/appointments/book/:id", (req, res) => {
   const { email, customerName, modelYear, make, model } = req.body;
   const appt = appointments.find((appt) => appt.id === req.params.id);
@@ -130,6 +134,6 @@ app.patch("/appointments/book/:id", (req, res) => {
 
 app.listen(process.env.SERVERPORT || 2000, () => {
   console.log(
-    `Scheduling server listening on port ${process.env.SERVERPORT || 2000}...`
+    `Scheduling server listening on port ${process.env.SERVERPORT || 2000}...`,
   );
 });

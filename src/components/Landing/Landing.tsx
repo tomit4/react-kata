@@ -1,7 +1,7 @@
-import { heading } from "copy/landing";
-import { intro } from "copy/landing";
-import Logo from "../../assets/logo.png"
-import Button from "../library/Button"
+import { heading } from "../../copy/landing";
+import { intro } from "../../copy/landing";
+import Logo from "../../assets/logo.png";
+import Button from "../library/Button";
 import "./Landing.css";
 
 const Landing = () => {
@@ -14,19 +14,19 @@ const Landing = () => {
         Get Started
       </Button>
       <footer className="splash-footer">
-      <h2>Need More Info?</h2>
-      <p>Email:</p>
-      <a
+        <h2>Need More Info?</h2>
+        <p>Email:</p>
+        <a
           aria-label="email"
           role="navigation"
           href="mailto: supportbutton@driveway.com"
-      >
+        >
           supportbutton@drivway.com
-      </a>
-      <p>Phone Number:</p>
-      <a aria-label="5 5 5. 8 7 2. 3 2 8 9." href="tel:5558723289">
+        </a>
+        <p>Phone Number:</p>
+        <a aria-label="5 5 5. 8 7 2. 3 2 8 9." href="tel:5558723289">
           555-872-3289
-      </a>
+        </a>
       </footer>
     </div>
   );

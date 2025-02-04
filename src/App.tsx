@@ -1,16 +1,11 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Landing from "components/Landing";
-import Scheduler from "components/Scheduler";
+import Landing from "./components/Landing";
+import Scheduler from "./components/Scheduler";
 
 const App = () => {
   return (
     <main>
-      <BrowserRouter
-        future={{
-          v7_startTransition: true,
-          v7_relativeSplatPath: true,
-        }}
-      >
+      <BrowserRouter>
         <Routes>
           <Route path="/" element={<Landing />} />
           <Route path="/scheduler" element={<Scheduler />} />
