@@ -9,20 +9,34 @@ import "./Scheduler.css";
 const Scheduler = () => {
   const [serviceList, setServiceList] = useState<ServiceType[]>([]);
 
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [errMsg, setErrMsg] = useState<string>("");
+
   useEffect(() => {
-    const grabServiceList = async () => {
-      const services = await getServices();
-      if (services) {
-        setServiceList(services);
-      }
-    };
-    grabServiceList();
+    try {
+      setIsLoading(true);
+      const grabServiceList = async () => {
+        const services = await getServices();
+        if (services) {
+          setServiceList(services);
+        }
+      };
+      grabServiceList();
+    } catch (err) {
+      const error = err as Error;
+      setErrMsg(error.message);
+      return;
+    } finally {
+      setIsLoading(false);
+    }
   }, [setServiceList]);
 
   return (
     <div className="scheduler">
       <h1>Select a Service</h1>
-      {serviceList.length > 0 ? (
+      {isLoading ? (
+        <p>Loading...</p>
+      ) : serviceList.length > 0 ? (
         <ul className="services-list">
           {serviceList.map((service) => (
             <li key={service.id}>
@@ -48,6 +62,7 @@ const Scheduler = () => {
           </a>
         </div>
       )}
+      {errMsg && <p>{errMsg}</p>}
     </div>
   );
 };

@@ -1,8 +1,8 @@
-import { useState } from "react";
+import { useState, lazy, Suspense } from "react";
 import { getAppointmentsByServiceId } from "../../utils/services";
-import type { AppointmentType } from "../../types"
+import type { AppointmentType } from "../../types";
 
-import AppointmentList from "../AppointmentList";
+const AppointmentList = lazy(() => import("../AppointmentList"));
 import CaretButton from "../library/CaretButton";
 
 import "./ServiceCard.css";
@@ -12,7 +12,6 @@ import DetailIcon from "../../assets/detail-icon.svg";
 import OilChangeIcon from "../../assets/oil-change-icon.svg";
 import TiresIcon from "../../assets/tires-icon.svg";
 import BrakeInspectionIcon from "../../assets/brake-inspection-icon.svg";
-
 
 const serviceIcons: Record<number, string> = {
   1: OilChangeIcon,
@@ -24,7 +23,7 @@ const serviceIcons: Record<number, string> = {
 type ServiceCardProps = {
   id: number;
   name: string;
-}
+};
 
 const ServiceCard = ({ id, name }: ServiceCardProps) => {
   const [caretIsReversed, setIsReversed] = useState<Boolean>(false);
@@ -43,7 +42,7 @@ const ServiceCard = ({ id, name }: ServiceCardProps) => {
         setAppointmentList(appointments);
       }
     }
-  }
+  };
 
   const iconSrc = serviceIcons[id];
 
@@ -63,15 +62,18 @@ const ServiceCard = ({ id, name }: ServiceCardProps) => {
         </CaretButton>
       </div>
       <div>
-        {caretIsReversed && appointmentList.length > 0 && (
-          <AppointmentList appointmentList={appointmentList} />
-        )}
-        {caretIsReversed && appointmentList.length <= 0 && (
-            <p>No Appointments Available For This Service</p>
+        {caretIsReversed && (
+          <Suspense fallback={<p>Loading...</p>}>
+            {appointmentList.length > 0 ? (
+              <AppointmentList appointmentList={appointmentList} />
+            ) : (
+              <p>No Appointments Available For This Service</p>
+            )}
+          </Suspense>
         )}
       </div>
     </>
-  )
+  );
 };
 
 export default ServiceCard;

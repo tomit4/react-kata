@@ -1,3 +1,4 @@
+import { memo } from "react";
 import type { ChangeEvent, FormEvent } from "react";
 import type { FormDataType } from "../../types";
 
@@ -75,4 +76,5 @@ const BookingForm = ({
   );
 };
 
-export default BookingForm;
+const MemoizedBookingForm = memo(BookingForm);
+export default MemoizedBookingForm;
