@@ -95,6 +95,7 @@ const AppointmentModal = ({
   );
 
   useEffect(() => {
+    // NOTE: Not quite correct, calling always throws error, bookingDetails never defined
     if (!selectedAppointment.id) return;
 
     const fetchBookingDetails = async () => {
