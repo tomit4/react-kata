@@ -1,8 +1,8 @@
-import { useState, useEffect } from "react"
+import { useState, useEffect } from "react";
 import { getServices } from "../../utils/services";
 
 import type { ServiceType } from "../../types";
-import ServiceCard from "../ServiceCard"
+import ServiceCard from "../ServiceCard";
 
 import "./Scheduler.css";
 
@@ -25,8 +25,8 @@ const Scheduler = () => {
       {serviceList.length > 0 ? (
         <ul className="services-list">
           {serviceList.map((service) => (
-            <li>
-              <ServiceCard key={service.id} id={service.id} name={service.name} />
+            <li key={service.id}>
+              <ServiceCard id={service.id} name={service.name} />
             </li>
           ))}
         </ul>
@@ -49,7 +49,7 @@ const Scheduler = () => {
         </div>
       )}
     </div>
-  )
-}
+  );
+};
 
 export default Scheduler;
