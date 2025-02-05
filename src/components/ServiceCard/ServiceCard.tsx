@@ -18,7 +18,7 @@ const serviceIcons: Record<number, string> = {
   2: BrakeInspectionIcon,
   3: TiresIcon,
   4: DetailIcon,
-};
+} as const;
 
 type ServiceCardProps = {
   id: number;
@@ -26,7 +26,7 @@ type ServiceCardProps = {
 };
 
 const ServiceCard = ({ id, name }: ServiceCardProps) => {
-  const [caretIsReversed, setIsReversed] = useState<Boolean>(false);
+  const [caretIsReversed, setIsReversed] = useState<boolean>(false);
   const [appointmentList, setAppointmentList] = useState<AppointmentType[]>([]);
 
   const handleGrabAppointmentsById = async () => {
